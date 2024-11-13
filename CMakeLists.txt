@@ -36,6 +36,7 @@ if(WIN32)
  target_compile_options(${PROJECT_NAME} PUBLIC "/EHsc")
 # Gryab: cl tries to open .obj instead of static lib
  set(STATIC_LIB_EXTENSION ".lib")
+ target_compile_options(${PROJECT_NAME} PUBLIC "/DWIN32")
 else()
  set(STATIC_LIB_EXTENSION ".a")
 endif()
