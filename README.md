@@ -1,4 +1,4 @@
-#### Building on Windows
+#### Building
 
 ```console
 cmake -S . -B build
