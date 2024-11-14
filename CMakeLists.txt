@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Gui)
-set(PROJECT_SOURCES main.cpp mainwindow.h mainwindow.cpp table_view_model.h table_view_model.cpp minizip_read_list.cpp)
+set(PROJECT_SOURCES main.cpp mainwindow.h mainwindow.cpp clickable_label.h table_view_model.h table_view_model.cpp minizip_read_list.cpp)
 
 execute_process(COMMAND git clone https://github.com/zlib-ng/minizip-ng.git
                 WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})

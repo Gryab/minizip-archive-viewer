@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "clickable_label.h"
 
 #include <QTableView>
 #include <QDragEnterEvent>
@@ -6,6 +7,8 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include <QHeaderView>
+ #include <QFileDialog>
+#include <string>
 
 int32_t minizip_list(const std::string &path, std::vector<std::string> &filesInfo);
 
@@ -38,22 +41,39 @@ void MainWindow::dragMoveEvent(QDragMoveEvent *e)
 
 void MainWindow::dropEvent(QDropEvent *e)
 {
-    foreach (const QUrl &url, e->mimeData()->urls()) {
+    handleListOfUrls(e->mimeData()->urls());
+}
+
+void MainWindow::handlePath(const std::string &path)
+{
+    minizip_list(path, m_filesInfo);
+    displayTableView();
+}
+
+void MainWindow::handleListOfUrls(QList<QUrl> urls)
+{
+    foreach (const QUrl &url, urls) {
         if(url.fileName().endsWith(".zip"))
         {
-            minizip_list(url.path().toStdString(), m_filesInfo);
-            displayTableView();
+            handlePath(url.path().toStdString());
             return;
         }
     }
     setLabel("try other file");
 }
 
+void MainWindow::handleClick(void)
+{
+    QList<QUrl> urls = QFileDialog::getOpenFileUrls();
+    handleListOfUrls(urls);
+}
+
 void MainWindow::setLabel(const QString& text)
 {
-    m_label = new QLabel(this);
+    m_label = new ClickableLabel(this);
     m_label->setText(text);
     m_label->setAlignment(Qt::AlignCenter);
+    connect(m_label, SIGNAL(clicked()), this, SLOT(handleClick()));
     setCentralWidget(m_label);
 }
 
