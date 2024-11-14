@@ -14,7 +14,9 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+
 public:
+
     explicit MainWindow(QWidget *parent = nullptr);
 
     void dragEnterEvent(QDragEnterEvent *e);
@@ -22,10 +24,13 @@ public:
     void dropEvent(QDropEvent *e);
 
     void handlePath(const std::string &path);
+
 public slots:
+
     void handleClick(void);
 
 private:
+
     QTableView *m_tableView;
     std::vector<std::string> m_filesInfo;
     TableViewModel m_tableModel;

@@ -7,7 +7,8 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include <QHeaderView>
- #include <QFileDialog>
+#include <QFileDialog>
+#include <qnamespace.h>
 #include <string>
 
 int32_t minizip_list(const std::string &path, std::vector<std::string> &filesInfo);
@@ -17,10 +18,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     m_tableModel.setFilesInfo(&m_filesInfo);
 
-    setWindowTitle(QString("hmmmmm"));
+    setWindowTitle(QString("miniZip Viewer"));
     resize(800, 600);
 
-    setLabel("Drag and drop a zip archive");
+    setLabel("Drag and drop a .zip archive Or click to Browse");
 
     setAcceptDrops(true);
 }
@@ -59,7 +60,7 @@ void MainWindow::handleListOfUrls(QList<QUrl> urls)
             return;
         }
     }
-    setLabel("try other file");
+    setLabel("try a different file");
 }
 
 void MainWindow::handleClick(void)
@@ -71,8 +72,9 @@ void MainWindow::handleClick(void)
 void MainWindow::setLabel(const QString& text)
 {
     m_label = new ClickableLabel(this);
-    m_label->setText(text);
+    m_label->setText(QString("<b><h2>") + text + QString("</h2></b>"));
     m_label->setAlignment(Qt::AlignCenter);
+    m_label->setTextFormat(Qt::RichText);
     connect(m_label, SIGNAL(clicked()), this, SLOT(handleClick()));
     setCentralWidget(m_label);
 }

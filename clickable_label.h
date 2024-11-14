@@ -4,7 +4,7 @@
 #include <QLabel>
 #include <QWidget>
 #include <Qt>
-
+// Gryab: copy-paste from the Qt official docs
 class ClickableLabel : public QLabel { 
     Q_OBJECT 
 

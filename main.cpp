@@ -12,8 +12,8 @@ int main(int argc, char *argv[])
     mw.show();
     if(argc > 1)
     {
-    #ifdef WIN32
     // Gryab: small hack, req for absolute path resolution
+    #ifdef WIN32
         std::string path = "/" + std::string(argv[1]);
     #else
         std::string path = std::string(argv[1]);
