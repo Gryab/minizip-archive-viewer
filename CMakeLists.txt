@@ -35,12 +35,11 @@ if(WIN32)
 # Gryab: minizip-ng doesn't throw cpp exceptions, otherwise default
  target_compile_options(${PROJECT_NAME} PUBLIC "/EHsc")
 # Gryab: cl tries to open .obj instead of static lib
- set(STATIC_LIB_EXTENSION ".lib")
  target_compile_options(${PROJECT_NAME} PUBLIC "/DWIN32")
+ target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/minizip-ng/build/Release/minizip-ng.lib)
 else()
- set(STATIC_LIB_EXTENSION ".a")
+ target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/minizip-ng/build/libminizip-ng.a)
 endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/minizip-ng/build/Release/minizip-ng${STATIC_LIB_EXTENSION})
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets)
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Gui)
