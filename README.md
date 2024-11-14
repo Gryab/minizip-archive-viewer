@@ -2,9 +2,9 @@
 
 ```console
 cmake -S . -B build
-cmake --build build --config {DESIRED BUILD TYPE}
 ```
-For example,
+Then
 ```console
 cmake --build build --config RELEASE
 ```
+Qt has to be installed
