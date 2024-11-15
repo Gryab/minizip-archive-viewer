@@ -16,12 +16,6 @@ extern "C"{
 #define printf(...)
 #endif
 
-#ifdef WIN32
-#define PATH_OFFSET_CORRECTION 1
-#else
-#define PATH_OFFSET_CORRECTION 0
-#endif
-
 // Gryab: basically copy-paste from the minizip.c file
 int32_t minizip_list(const std::string &path, std::vector<std::string> &filesInfo) {
     //uint32_t ratio = 0;
@@ -38,9 +32,9 @@ int32_t minizip_list(const std::string &path, std::vector<std::string> &filesInf
     if (!reader)
         return MZ_MEM_ERROR;
 
-    err = mz_zip_reader_open_file(reader, path.substr(PATH_OFFSET_CORRECTION).c_str());
+    err = mz_zip_reader_open_file(reader, path.c_str());
     if (err != MZ_OK) {
-        printf("Error %" PRId32 " opening archive %s\n", err, path.substr(PATH_OFFSET_CORRECTION).c_str());
+        printf("Error %" PRId32 " opening archive %s\n", err, path.c_str());
         mz_zip_reader_delete(&reader);
         return err;
     }

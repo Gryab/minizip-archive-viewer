@@ -11,6 +11,12 @@
 #include <qnamespace.h>
 #include <string>
 
+#ifdef WIN32
+#define PATH_OFFSET 1
+#else
+#define PATH_OFFSET 0
+#endif
+
 int32_t minizip_list(const std::string &path, std::vector<std::string> &filesInfo);
 
 MainWindow::MainWindow(QWidget *parent)
@@ -56,7 +62,7 @@ void MainWindow::handleListOfUrls(QList<QUrl> urls)
     foreach (const QUrl &url, urls) {
         if(url.fileName().endsWith(".zip"))
         {
-            handlePath(url.path().toStdString());
+            handlePath(url.path().toStdString().substr(PATH_OFFSET));
             return;
         }
     }
